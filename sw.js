@@ -8,7 +8,7 @@
    ============================================================================= */
 "use strict";
 
-const VERSION = "v1.5.0";
+const VERSION = "v1.5.1";
 const SHELL = `perfil-shell-${VERSION}`;
 const CACHE_TILES = "perfil-tiles-v1";     // no se borra al actualizar la app
 
@@ -63,9 +63,11 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
+    // Solo versiones viejas de NUESTRO shell: el origen cvenegas-sernageomin.github.io es
+    // compartido con otras PWA y la Cache API es por origen, no por ruta.
     const names = await caches.keys();
     await Promise.all(names.map((n) => {
-      if (n !== SHELL && n !== CACHE_TILES) return caches.delete(n);
+      if (n.startsWith("perfil-shell-") && n !== SHELL) return caches.delete(n);
     }));
     await self.clients.claim();
   })());
