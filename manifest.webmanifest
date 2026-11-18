@@ -1,0 +1,22 @@
+{
+  "name": "Perfiles geológicos — secciones sobre satélite y DEM",
+  "short_name": "Perfiles",
+  "description": "Digitaliza contactos, manteos, fallas y unidades sobre imagen satelital; obtén el perfil topográfico real y la sección geológica proyectada. Funciona sin conexión con teselas Sentinel-2 y DEM de dominio público.",
+  "id": "/perfiles-geologicos/pwa/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#14181e",
+  "theme_color": "#14181e",
+  "lang": "es-CL",
+  "dir": "ltr",
+  "categories": ["productivity", "education", "navigation", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

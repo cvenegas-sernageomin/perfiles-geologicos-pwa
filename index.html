@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Perfiles geológicos</title>
+<meta name="description" content="Secciones geológicas sobre imagen satelital y DEM: digitaliza contactos, manteos, fallas y unidades, y obtén el perfil topográfico y la sección proyectada. Funciona sin conexión.">
+<meta name="theme-color" content="#14181e">
+<meta name="color-scheme" content="dark">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Perfiles">
+<link rel="stylesheet" href="js/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <button id="btnMenu" class="ghost only-narrow" title="Datos de la sección" aria-label="Datos de la sección">☰</button>
+    <h1>Perfiles geológicos <span class="pill">PWA</span></h1>
+    <span id="net" class="pill net">—</span>
+    <div class="sp"></div>
+    <button id="btnInstall" class="ok" hidden>⤓ Instalar</button>
+    <button id="btnImport" title="Importar SHP, KML/KMZ, GeoJSON, CSV o un DEM GeoTIFF (también puedes arrastrarlos)">⤒ Importar</button>
+    <button id="btnZona" title="Descargar la zona visible para usarla sin conexión">⤓ Zona</button>
+    <button id="btnExport" title="Exportar datos y figuras">⤓ Exportar</button>
+  </header>
+
+  <nav id="tools" aria-label="Herramientas">
+    <button class="tool on" data-tool="move" title="Mover y arrastrar el mapa">✋<span> Mover</span></button>
+    <button class="tool" data-tool="trace" title="Traza de sección: clic por vértice, doble clic cierra">📏<span> Traza</span></button>
+    <span class="sep"></span>
+    <button class="tool" data-tool="contact" title="Contacto entre unidades">●<span> Contacto</span></button>
+    <button class="tool" data-tool="dip" title="Estación de manteo">∠<span> Manteo</span></button>
+    <button class="tool" data-tool="fault" title="Falla: clic por vértice, doble clic cierra">⌁<span> Falla</span></button>
+    <button class="tool" data-tool="unit" title="Unidad: clic por vértice, doble clic cierra">▭<span> Unidad</span></button>
+    <button class="tool" data-tool="station" title="Estación o punto de observación">★<span> Estación</span></button>
+    <div class="sp"></div>
+    <span class="count" id="cnt">0 datos</span>
+    <button id="btnUndo" title="Deshacer (Ctrl+Z)">↶</button>
+    <button id="btnDelAll" title="Borrar todos los datos">🗑</button>
+  </nav>
+
+  <main>
+    <div id="map">
+      <div id="info" class="card">
+        <div class="secrow">
+          <select id="selSec" title="Sección activa"></select>
+          <button id="btnSecMenu" title="Nueva, renombrar o borrar secciones">⋯</button>
+          <button id="btnTraceXY" title="Traza por coordenadas, azimut y largo">⌖</button>
+        </div>
+        <div class="row"><span class="k">Largo</span><span class="v" id="iLen">—</span></div>
+        <div class="row"><span class="k">Azimut</span><span class="v" id="iAz">—</span></div>
+        <div class="row"><span class="k">A</span><span class="v" id="iA">—</span></div>
+        <div class="row"><span class="k">B</span><span class="v" id="iB">—</span></div>
+        <div class="row"><span class="k">Desnivel</span><span class="v" id="iRel">—</span></div>
+        <div class="hint" id="iHint">Elige «Traza» y marca los vértices de la sección (doble clic cierra), o usa ⌖ para darla por coordenadas.</div>
+      </div>
+
+      <div id="kinPanel" class="card" hidden></div>
+
+      <div id="layers" class="card">
+        <div class="ttl">Imagen de fondo</div>
+        <select id="selBase">
+          <option value="esri">Satélite Esri (0,5–2 m, online)</option>
+          <option value="s2">Sentinel-2 sin nubes (10 m, offline)</option>
+          <option value="relieve">Relieve Esri (online)</option>
+          <option value="none">Sin imagen (solo traza)</option>
+        </select>
+        <div class="sep"></div>
+        <label><input type="checkbox" id="cHillEsri"> Sombra Esri (online)</label>
+        <label><input type="checkbox" id="cHillLocal" checked> Relieve local desde DEM</label>
+        <label><input type="checkbox" id="cTrace" checked> Traza y marcas cada 1 km</label>
+        <label><input type="checkbox" id="cCursor" checked> Cota bajo el cursor</label>
+        <div id="demInfo" class="deminfo" hidden></div>
+        <div class="sep"></div>
+        <div class="ttl">Perfil y sección</div>
+        <label class="rowsel"><span>Exageración</span>
+          <select id="selVE">
+            <option value="0">máx</option>
+            <option value="1">1×</option>
+            <option value="2" selected>2×</option>
+            <option value="3">3×</option>
+          </select>
+        </label>
+        <label class="rowsel"><span>Proyección</span>
+          <select id="selProj">
+            <option value="perp">perpendicular</option>
+            <option value="strike">por rumbo</option>
+            <option value="plunge">por eje (down-plunge)</option>
+          </select>
+        </label>
+        <div class="rowsel" id="plungeRow" hidden><span>Eje</span>
+          <span><input id="inTrend" type="number" min="0" max="360" step="1" title="trend del eje (°)">°/<input id="inPlunge" type="number" min="0" max="90" step="1" title="plunge del eje (°)">°</span>
+        </div>
+        <label class="rowsel"><span>Corredor</span>
+          <select id="selCorr">
+            <option value="150">±150 m</option>
+            <option value="300" selected>±300 m</option>
+            <option value="600">±600 m</option>
+            <option value="1200">±1,2 km</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <aside id="panel">
+      <div class="hd">
+        <span>Datos de la sección</span>
+        <b id="cnt2">0</b>
+        <button id="btnClosePanel" class="ghost only-narrow" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="hd sub"><span>Capas importadas</span></div>
+      <div id="lyrs"></div>
+      <div class="hd sub"><span>Dibujados</span></div>
+      <div id="rows"></div>
+      <div class="ft">
+        <span>Contacto, manteo y estación: un clic.</span>
+        <span>Falla y unidad: clic por vértice, doble clic cierra.</span>
+        <span>Esc cancela · Ctrl+Z deshace.</span>
+      </div>
+    </aside>
+  </main>
+
+  <section id="foot">
+    <div id="secBar" aria-label="Herramientas de la sección">
+      <button data-st="view" class="on" title="Ver y seleccionar líneas">✋</button>
+      <button data-st="horizon" title="Dibujar un horizonte">╱ Horizonte</button>
+      <button data-st="fault" title="Dibujar una falla">⌁ Falla</button>
+      <button data-st="edit" title="Mover, agregar (clic en tramo) o quitar (clic derecho) vértices">✥ Editar</button>
+      <button data-st="erase" title="Borrar una línea">⌫</button>
+      <button data-st="measure" title="Medir distancias, ángulos y largos reales">📐</button>
+      <span class="sep"></span>
+      <button data-act="construct" title="Construir horizontes desde contactos y manteos (kink, Busk, Hermite, tangentes)">⚒ Construir</button>
+      <button data-act="parallel" title="Capas paralelas o similares desde la línea seleccionada">⇉ Paralelas</button>
+      <button data-act="pi" title="Eje de pliegue π de los manteos">π Eje</button>
+      <button data-act="balance" title="Largo de línea y área-profundidad">⚖ Balance</button>
+      <button data-act="kin" title="Modelado cinemático: trishear, flujo paralelo a la falla, cizalla inclinada; restaurar e invertir">⚙ Cinemática</button>
+      <span class="sep"></span>
+      <button data-act="undo" title="Deshacer en la sección">↶</button>
+      <button data-act="redo" title="Rehacer en la sección">↷</button>
+      <div class="sp"></div>
+      <label title="Profundidad bajo el relieve">Prof.
+        <select id="selDepth"><option value="0">relieve</option><option value="1000">1 km</option><option value="2000">2 km</option><option value="3000" selected>3 km</option><option value="5000">5 km</option><option value="10000">10 km</option></select></label>
+      <label title="Error de los manteos: abanico de incertidumbre">±
+        <select id="selDipErr"><option value="0">0°</option><option value="5">5°</option><option value="10">10°</option></select></label>
+      <button data-act="big" title="Agrandar la sección">⤢</button>
+    </div>
+    <canvas id="pf"></canvas>
+    <div id="pfTip" class="pftip" hidden></div>
+  </section>
+</div>
+
+<div id="modal" class="modal" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <h2 id="mTitle">—</h2>
+    <div id="mBody"></div>
+    <div class="acts" id="mActs"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="js/vendor/leaflet/leaflet.js"></script>
+<script src="js/vendor/jszip/jszip.min.js"></script>
+<script src="js/vendor/shpjs/shp.min.js"></script>
+<script src="js/vendor/togeojson/togeojson.umd.js"></script>
+<script src="js/vendor/proj4/proj4.js"></script>
+<script src="js/vendor/geotiff/geotiff.js"></script>
+<script src="js/util.js"></script>
+<script src="js/db.js"></script>
+<script src="js/geo.js"></script>
+<script src="js/dem.js"></script>
+<script src="js/state.js"></script>
+<script src="js/map.js"></script>
+<script src="js/projection.js"></script>
+<script src="js/construct.js"></script>
+<script src="js/kinematics.js"></script>
+<script src="js/sectionedit.js"></script>
+<script src="js/profile.js"></script>
+<script src="js/import.js"></script>
+<script src="js/export.js"></script>
+<script src="js/kinpanel.js"></script>
+<script src="js/zone.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
