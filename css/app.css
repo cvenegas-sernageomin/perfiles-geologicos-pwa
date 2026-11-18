@@ -9,6 +9,9 @@ html,body{margin:0;height:100%;font-family:"Segoe UI",system-ui,sans-serif;
   background:var(--bg);color:var(--ink);font-size:13px;overflow:hidden;
   -webkit-text-size-adjust:100%}
 button,select,input{font-family:inherit;color:inherit}
+header a.hbtn{flex:0 0 auto;background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+  border-radius:7px;padding:6px 10px;font-size:12px;font-weight:700;text-decoration:none;line-height:normal}
+header a.hbtn:hover{border-color:var(--accent);color:var(--accent)}
 
 #app{display:grid;height:100vh;height:100dvh;
   grid-template-rows:var(--head) var(--tools) minmax(0,1fr) var(--foot);
@@ -171,6 +174,8 @@ main{grid-area:main;display:grid;grid-template-columns:minmax(0,1fr) var(--side)
   :root{--foot:152px}
   header h1{font-size:12px}
   header .pill:not(.net){display:none}
+  header{gap:5px;padding:0 6px}
+  header button,header a.hbtn{padding:6px 7px}
   #layers{max-width:168px}
   #info{max-width:46vw}
 }

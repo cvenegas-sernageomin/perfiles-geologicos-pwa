@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial · Perfiles geológicos</title>
+<meta name="description" content="Guía paso a paso de la PWA Perfiles geológicos: importar una carta, trazar la sección, construir en profundidad, balancear, modelar y exportar.">
+<meta name="theme-color" content="#14181e">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<style>
+:root{--bg:#14181e;--panel:#1c2129;--panel2:#252b35;--line:#333b47;--ink:#e6ebf1;--muted:#8d98a5;--accent:#e8a33d;--ok:#5fbf93;--bad:#e06c6c;--blue:#6aa9e0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Segoe UI",system-ui,sans-serif}
+.wrap{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1180px;margin:0 auto}
+nav.toc{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 14px 30px 18px;border-right:1px solid var(--line);font-size:13px}
+nav.toc b{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px}
+nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+nav.toc a:hover{background:var(--panel2)}
+nav.toc a span{color:var(--muted);display:inline-block;width:22px}
+main{padding:28px 40px 80px;min-width:0}
+header.hero{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:10px}
+h1{font-size:28px;margin:0 0 6px}
+h2{font-size:21px;margin:44px 0 10px;padding-top:6px;border-top:1px solid var(--line)}
+h2 .n{color:var(--accent);margin-right:8px}
+h3{font-size:16px;margin:24px 0 6px;color:#f2d29a}
+p{margin:8px 0}
+a{color:var(--blue)}
+.sub{color:var(--muted);margin:0}
+.btnlink{display:inline-block;margin-top:14px;background:var(--accent);color:#161a20;font-weight:700;text-decoration:none;padding:8px 14px;border-radius:7px}
+kbd,.ui{font:12.5px/1 "Segoe UI",system-ui,sans-serif;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:2px 6px;white-space:nowrap}
+.ui{color:#f2d29a}
+code{font:13px Consolas,monospace;background:var(--panel2);padding:1px 5px;border-radius:4px}
+ol.steps{counter-reset:s;list-style:none;padding:0}
+ol.steps>li{counter-increment:s;position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line)}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:8px;width:26px;height:26px;border-radius:50%;background:var(--panel2);border:1px solid var(--accent);color:var(--accent);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.box{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:8px;padding:10px 14px;margin:14px 0}
+.box.warn{border-left-color:var(--accent)}
+.box.bad{border-left-color:var(--bad)}
+.box.ok{border-left-color:var(--ok)}
+.box>b:first-child{display:block;margin-bottom:2px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+.screen{display:grid;grid-template-columns:1fr 150px;grid-template-rows:30px 28px 120px 80px;gap:3px;max-width:620px;margin:14px 0;font-size:12px}
+.screen div{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:5px 8px;color:var(--muted)}
+.screen div b{color:var(--ink)}
+.screen .h{grid-column:1/3}.screen .t{grid-column:1/3}.screen .f{grid-column:1/3}
+.screen .m{background:#1f2a24}
+.fig{display:block;max-width:100%;height:auto;margin:10px 0}
+footer{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:860px){
+  .wrap{display:block}
+  nav.toc{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:14px 16px;columns:2;column-gap:12px}
+  nav.toc b{column-span:all}
+  main{padding:20px 16px 60px}
+  h1{font-size:23px}
+  table{display:block;overflow-x:auto}
+  .screen{grid-template-columns:1fr 90px}
+}
+@media print{nav.toc{display:none}.wrap{display:block}body{background:#fff;color:#111}.box,th,.screen div{background:#f4f4f4;color:#111}h3{color:#7a4b00}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="toc" aria-label="Contenido">
+  <b>Contenido</b>
+  <a href="#que"><span>1</span>Qué hace</a>
+  <a href="#pantalla"><span>2</span>La pantalla</a>
+  <a href="#rapido"><span>3</span>Primera sección en 10 pasos</a>
+  <a href="#importar"><span>4</span>Importar una carta</a>
+  <a href="#traza"><span>5</span>Trazar la sección</a>
+  <a href="#datos"><span>6</span>Datos propios en el mapa</a>
+  <a href="#leer"><span>7</span>Leer la sección</a>
+  <a href="#construir"><span>8</span>Construir en profundidad</a>
+  <a href="#plano"><span>9</span>Plano de una falla por DEM</a>
+  <a href="#balance"><span>10</span>Balance</a>
+  <a href="#cinematica"><span>11</span>Modelado cinemático</a>
+  <a href="#exportar"><span>12</span>Exportar</a>
+  <a href="#offline"><span>13</span>Sin conexión y DEM propio</a>
+  <a href="#problemas"><span>14</span>Problemas frecuentes</a>
+  <a href="#refs"><span>15</span>Referencias</a>
+</nav>
+
+<main>
+<header class="hero">
+  <h1>Tutorial de Perfiles geológicos</h1>
+  <p class="sub">Cómo pasar de una carta geológica digital a una sección interpretada, balanceada y lista para imprimir. Versión de la app: 1.5. En la app, este tutorial se abre con el botón <span class="ui">?</span> del encabezado.</p>
+  <a class="btnlink" href="./">Abrir la app →</a>
+</header>
+
+<!-- 1 -->
+<h2 id="que"><span class="n">1</span>Qué hace</h2>
+<p>Perfiles geológicos construye <b>secciones geológicas en el navegador</b>, a partir de la imagen satelital, un modelo de elevación (DEM) y los datos de la carta (unidades, contactos, fallas y manteos). Corta la topografía a lo largo de una traza, proyecta los datos al plano de la sección con su <b>manteo aparente</b> y ofrece herramientas para interpretar en profundidad, revisar el balance y modelar la deformación.</p>
+<ul>
+  <li><b>No necesita instalación ni cuenta.</b> Se puede instalar como app (<span class="ui">⤓ Instalar</span>) y funciona sin conexión.</li>
+  <li><b>Los datos quedan en el equipo</b> (almacenamiento del navegador). Nada se sube a un servidor. Para respaldar o pasar a otro equipo, exporta el <i>proyecto completo</i> (sección 12).</li>
+  <li>Se usa mejor en un computador con mouse; en tablet y teléfono funciona, con el panel de datos detrás del botón <span class="ui">☰</span>.</li>
+</ul>
+
+<!-- 2 -->
+<h2 id="pantalla"><span class="n">2</span>La pantalla</h2>
+<div class="screen" aria-hidden="true">
+  <div class="h"><b>Encabezado</b> · ⤒ Importar · ⤓ Zona · ⤓ Exportar</div>
+  <div class="t"><b>Herramientas del mapa</b> · ✋ Mover · 📏 Traza · ● Contacto · ∠ Manteo · ⌁ Falla · ▭ Unidad · ★ Estación</div>
+  <div class="m"><b>Mapa</b> — tarjeta de la sección (arriba a la izquierda) y capas (derecha)</div>
+  <div><b>Panel</b><br>capas importadas y datos dibujados</div>
+  <div class="f"><b>Sección</b> — barra de herramientas de interpretación y lienzo del perfil</div>
+</div>
+<table>
+  <tr><th>Zona</th><th>Para qué sirve</th></tr>
+  <tr><td>Encabezado</td><td>Importar archivos, descargar la zona para trabajar sin señal y exportar. El indicador de red muestra si hay conexión.</td></tr>
+  <tr><td>Herramientas del mapa</td><td>Dibujar la traza y datos propios. A la derecha: contador de datos, <span class="ui">↶</span> deshacer y <span class="ui">🗑</span> borrar todo.</td></tr>
+  <tr><td>Tarjeta de la sección</td><td>Selector de la sección activa, <span class="ui">⋯</span> (nueva, renombrar, borrar), <span class="ui">⌖</span> (traza por coordenadas), y largo, azimut, extremos A–B y desnivel.</td></tr>
+  <tr><td>Capas</td><td>Imagen de fondo (satélite Esri, Sentinel-2, relieve o ninguna), sombreado, y los ajustes de la sección: <b>exageración vertical</b>, <b>proyección</b> y <b>corredor</b>.</td></tr>
+  <tr><td>Panel lateral</td><td>Capas importadas (zoom, quitar) y la lista de datos dibujados, con su cota y su posición <i>s</i> a lo largo de la sección.</td></tr>
+  <tr><td>Sección (abajo)</td><td>El perfil topográfico con los datos proyectados y la interpretación. <span class="ui">⤢</span> la agranda.</td></tr>
+</table>
+<p>Atajos: <kbd>Esc</kbd> cancela lo que estás dibujando, <kbd>Ctrl</kbd>+<kbd>Z</kbd> deshace, doble clic o <kbd>Enter</kbd> termina una línea.</p>
+
+<!-- 3 -->
+<h2 id="rapido"><span class="n">3</span>Primera sección en 10 pasos</h2>
+<p>El recorrido mínimo, con una carta SERNAGEOMIN en formato shapefile (por ejemplo, el .zip de una Carta Geológica de Chile con sus capas <code>GB_*</code>).</p>
+<ol class="steps">
+  <li><b>Abre la app</b> y acerca el mapa a la zona de la carta.</li>
+  <li><b>Importa la carta</b>: <span class="ui">⤒ Importar</span> o arrastra el .zip a la ventana. El asistente pregunta capa por capa cómo leerla; para las capas <code>GB_*</code> las opciones vienen propuestas: revisa y pulsa <span class="ui">Importar</span>. Las capas que no necesitas (toponimia, red vial) se saltan con <span class="ui">No importar</span>.</li>
+  <li><b>Traza la sección</b>: herramienta <span class="ui">📏 Traza</span>, un clic en el extremo A, un clic por cada vértice y <b>doble clic</b> en el extremo B. Aparece el perfil abajo.</li>
+  <li><b>Ajusta el corredor</b> (panel Capas): los manteos y estructuras a menos de esa distancia de la traza se proyectan a la sección. Parte con ±300 m.</li>
+  <li><b>Elige la exageración vertical</b>: 1× para interpretar con ángulos reales; 2× o 3× para leer mejor el relieve.</li>
+  <li><b>Revisa la sección</b>: geología en superficie (colores de las unidades), cruces con contactos y fallas, y los manteos aparentes como pequeños segmentos.</li>
+  <li><b>Construye los horizontes</b>: <span class="ui">⚒ Construir</span>, método <i>Kink-band</i>, marca los contactos que quieras usar como semilla, indica la unidad que queda bajo cada uno y pulsa <span class="ui">Construir</span>.</li>
+  <li><b>Dibuja o corrige</b> las fallas y horizontes con <span class="ui">⌁ Falla</span>, <span class="ui">╱ Horizonte</span> y <span class="ui">✥ Editar</span>.</li>
+  <li><b>Controla el balance</b> con <span class="ui">⚖ Balance</span>: largos de línea parecidos entre horizontes.</li>
+  <li><b>Exporta</b>: <span class="ui">⤓ Exportar</span> → lámina en PDF o SVG a escala, y <span class="ui">Proyecto completo</span> para guardar el trabajo.</li>
+</ol>
+
+<!-- 4 -->
+<h2 id="importar"><span class="n">4</span>Importar una carta</h2>
+<h3>Formatos</h3>
+<table>
+  <tr><th>Formato</th><th>Notas</th></tr>
+  <tr><td>Shapefile</td><td>En .zip, o los archivos sueltos (<code>.shp .dbf .shx .prj .cpg</code>) seleccionados juntos. Sin <code>.cpg</code> el texto se lee como Windows-1252, que es lo habitual en las cartas.</td></tr>
+  <tr><td>KML / KMZ</td><td>Por ejemplo, trazas digitalizadas en Google Earth.</td></tr>
+  <tr><td>GeoJSON</td><td>En WGS84.</td></tr>
+  <tr><td>CSV de puntos</td><td>Columnas lat/lon o este/norte; separador coma, punto y coma o tabulación. Útil para manteos de libreta.</td></tr>
+  <tr><td>GeoTIFF</td><td>Se toma como <b>DEM propio</b> en lugar del DEM global (sección 13).</td></tr>
+  <tr><td>Proyecto .json</td><td>Un proyecto guardado con la app: abre capas, secciones e interpretación.</td></tr>
+</table>
+
+<h3>El asistente de importación</h3>
+<p>Por cada capa se abre un cuadro con el nombre, el número de entidades y su tipo (puntos, líneas o polígonos).</p>
+<ul>
+  <li><b>Sistema de coordenadas.</b> Se lee del <code>.prj</code>. Si el archivo no lo trae, el asistente lo pide.</li>
+</ul>
+<div class="box warn"><b>Ojo con el datum</b>PSAD56 y WGS84 difieren unos 400 m en Chile. Si los datos quedan corridos respecto de la imagen, revisa el sistema elegido antes de seguir. SIRGAS-Chile y WGS84 son equivalentes a esta escala.</div>
+<ul>
+  <li><b>Polígonos (unidades).</b> Elige el campo con el nombre de la unidad (en las cartas: <code>CODIGO</code>, la sigla). Los bordes entre unidades distintas se leen como contactos al cortar la sección.</li>
+  <li><b>Líneas.</b> Clasifica todas iguales (por ejemplo, todas «falla») o <i>según un campo</i>: la tabla muestra cada valor distinto y su rol (contacto, falla, eje, saltar…). Para fallas se define también su manteo (de un campo o un valor fijo, 60° por defecto), el sentido del manteo y el campo que dice si es inferida o cubierta.</li>
+  <li><b>Puntos (manteos).</b> Indica el campo de manteo y el de dirección de manteo. Si solo hay rumbo, el sentido se toma de un campo de texto («Hacia el NE») o de la convención de mano derecha o izquierda.</li>
+</ul>
+<div class="box"><b>Capas GB_* de SERNAGEOMIN</b>
+<code>GB_ESTRUCTURA</code>: <code>AZIMUTH</code> es el <b>rumbo</b>, no la dirección de manteo; <code>MANTEO</code> es el manteo y <code>d_DIR_MANT</code> dice hacia dónde mantea. <code>GB_FALLA_L</code>: <code>d_FALLA</code> es el tipo, <code>d_TP_INFOR</code> si es observada, inferida, cubierta o fotointerpretada, y <code>d_DIR_MANT</code> el sentido del manteo. El asistente propone este mapeo: verifica que la dirección de manteo resultante coincida con el símbolo de la carta en un par de puntos.</div>
+<p>Las capas importadas aparecen en el panel lateral, donde puedes hacer zoom a cada una o quitarla (el archivo original no se modifica). Un clic sobre una entidad del mapa abre su ficha con sus atributos.</p>
+
+<!-- 5 -->
+<h2 id="traza"><span class="n">5</span>Trazar la sección</h2>
+<h3>Tres maneras</h3>
+<ol>
+  <li><b>A mano:</b> <span class="ui">📏 Traza</span>, clic por vértice, doble clic en el último. La traza puede ser <b>quebrada</b>; la distancia <i>s</i> se mide a lo largo de todos los tramos.</li>
+  <li><b>Por coordenadas:</b> <span class="ui">⌖</span> en la tarjeta. Este y norte UTM (WGS84 o PSAD56, husos 18S y 19S), si el punto es el centro o el extremo A, azimut y largo. Azimut 90 = sección W–E.</li>
+  <li><b>Desde una línea importada:</b> con <span class="ui">✋ Mover</span>, clic sobre la línea → <span class="ui">Usar como traza</span>.</li>
+</ol>
+<p>El sentido de la traza importa: <b>A</b> es el primer punto y queda a la izquierda de la sección. Para una lámina convencional, traza de W a E o de S a N.</p>
+
+<h3>Varias secciones</h3>
+<p>Con <span class="ui">⋯</span> → <span class="ui">Nueva sección</span> se agrega otra; el selector cambia la activa. Las otras secciones se ven en azul en el mapa y, donde cruzan a la activa, aparecen como <b>amarres</b> en la sección: sirven para que las interpretaciones sean coherentes en el cruce.</p>
+
+<h3>Ajustes de la sección (panel Capas)</h3>
+<table>
+  <tr><th>Ajuste</th><th>Opciones</th><th>Cuándo usar</th></tr>
+  <tr><td>Exageración</td><td>máx · 1× · 2× · 3×</td><td>1× para medir e interpretar ángulos; la exageración deforma los manteos (la app los dibuja corregidos por ella).</td></tr>
+  <tr><td>Proyección</td><td>perpendicular · por rumbo · por eje</td><td><i>Perpendicular</i>: cada dato baja en línea recta a la traza. <i>Por rumbo</i>: se desliza a lo largo de su rumbo, mejor para capas que cortan la traza en ángulo. <i>Por eje (down-plunge)</i>: proyecta paralelo al eje de un pliegue cilíndrico, dado por su azimut de inmersión (trend) e inmersión (plunge); el eje se puede calcular con <span class="ui">π Eje</span>.</td></tr>
+  <tr><td>Corredor</td><td>±150 m a ±1,2 km</td><td>Ancho de la franja de datos que se proyecta. Más ancho trae más manteos, pero de estructuras que pueden no ser las de la traza.</td></tr>
+</table>
+<p>En la barra de la sección, <span class="ui">Prof.</span> fija la profundidad dibujada (de solo relieve a 10 km).</p>
+
+<!-- 6 -->
+<h2 id="datos"><span class="n">6</span>Datos propios en el mapa</h2>
+<p>Además de lo importado, puedes dibujar datos de terreno o de fotointerpretación:</p>
+<table>
+  <tr><th>Herramienta</th><th>Cómo</th><th>En la sección</th></tr>
+  <tr><td><span class="ui">● Contacto</span></td><td>Un clic. En el panel se anota la unidad o una nota.</td><td>Punto en el relieve.</td></tr>
+  <tr><td><span class="ui">∠ Manteo</span></td><td>Un clic; en el panel, manteo y dirección de manteo.</td><td>Segmento con el manteo aparente.</td></tr>
+  <tr><td><span class="ui">⌁ Falla</span></td><td>Clic por vértice, doble clic cierra.</td><td>Cruce con su manteo aparente.</td></tr>
+  <tr><td><span class="ui">▭ Unidad</span></td><td>Polígono: clic por vértice, doble clic cierra.</td><td>Tramo de color en superficie.</td></tr>
+  <tr><td><span class="ui">★ Estación</span></td><td>Un clic.</td><td>Marca de referencia.</td></tr>
+</table>
+<p>Cada dato del panel indica su cota y su posición <i>s</i>; si queda fuera del corredor, se marca.</p>
+
+<!-- 7 -->
+<h2 id="leer"><span class="n">7</span>Leer la sección</h2>
+<p>El lienzo inferior muestra el perfil topográfico desde A hasta B, con la cota a la izquierda y la distancia <i>s</i> abajo. Encima:</p>
+<ul>
+  <li><b>Geología en superficie</b>, de los polígonos de unidades que corta la traza.</li>
+  <li><b>Cruces</b> de la traza con contactos, fallas y ejes.</li>
+  <li><b>Manteos aparentes</b> de los datos del corredor.</li>
+  <li><b>Amarres</b> con otras secciones.</li>
+</ul>
+<svg class="fig" viewBox="0 0 560 170" width="560" role="img" aria-label="Manteo real y aparente">
+  <rect x="0" y="0" width="560" height="170" rx="8" fill="#1c2129" stroke="#333b47"/>
+  <line x1="40" y1="130" x2="300" y2="130" stroke="#8d98a5"/>
+  <line x1="40" y1="130" x2="245" y2="45" stroke="#e8a33d" stroke-width="3"/>
+  <line x1="40" y1="130" x2="275" y2="82" stroke="#6aa9e0" stroke-width="3"/>
+  <text x="250" y="42" fill="#e8a33d" font-size="13">manteo real δ</text>
+  <text x="280" y="80" fill="#6aa9e0" font-size="13">aparente δap</text>
+  <text x="320" y="56" fill="#e6ebf1" font-size="14">tan δap = tan δ · cos β</text>
+  <text x="320" y="80" fill="#8d98a5" font-size="12.5">β = ángulo entre el azimut de la</text>
+  <text x="320" y="97" fill="#8d98a5" font-size="12.5">sección y la dirección de manteo</text>
+  <text x="320" y="125" fill="#8d98a5" font-size="12.5">β = 0 → δap = δ · β = 90° → δap = 0</text>
+</svg>
+<p>El manteo aparente es menor o igual que el real; coincide con él solo cuando la sección es paralela a la dirección de manteo. Por eso conviene trazar la sección <b>perpendicular al rumbo</b> de las estructuras principales.</p>
+<p>El selector <span class="ui">±</span> (0°, 5° o 10°) dibuja un <b>abanico de incertidumbre</b>: el rango de manteos aparentes que resulta de un error de esa magnitud en el manteo y en la dirección medidos. Ayuda a ver qué tan restringida está la geometría en profundidad.</p>
+<p>Pasa el cursor sobre el perfil para ver la cota y la distancia del punto.</p>
+
+<!-- 8 -->
+<h2 id="construir"><span class="n">8</span>Construir en profundidad</h2>
+<h3>Herramientas de dibujo</h3>
+<table>
+  <tr><th>Botón</th><th>Qué hace</th></tr>
+  <tr><td><span class="ui">✋</span></td><td>Ver y seleccionar líneas (necesario para <i>Paralelas</i>).</td></tr>
+  <tr><td><span class="ui">╱ Horizonte</span></td><td>Dibuja un horizonte, clic por vértice. Un horizonte es el <b>techo</b> de su unidad.</td></tr>
+  <tr><td><span class="ui">⌁ Falla</span></td><td>Dibuja una falla en la sección.</td></tr>
+  <tr><td><span class="ui">✥ Editar</span></td><td>Arrastra vértices; clic en un tramo agrega uno; clic derecho lo quita.</td></tr>
+  <tr><td><span class="ui">⌫</span></td><td>Borra la línea sobre la que haces clic.</td></tr>
+  <tr><td><span class="ui">📐</span></td><td>Dos clics: distancia y ángulo reales (sin exageración). Clic sobre una línea: su largo.</td></tr>
+  <tr><td><span class="ui">↶ ↷</span></td><td>Deshacer y rehacer en la sección.</td></tr>
+</table>
+
+<h3>⚒ Construir: horizontes desde contactos y manteos</h3>
+<p>El cuadro lista los contactos en superficie de la sección como <b>semillas</b>. Para cada uno indicas la unidad que queda <b>bajo</b> el horizonte (se propone la del lado hacia donde sube la capa). También eliges qué manteos usar: los del corredor, o los de un corredor 2 o 4 veces más ancho.</p>
+<table>
+  <tr><th>Método</th><th>Geometría</th><th>Adecuado para</th></tr>
+  <tr><td>Kink-band</td><td>Dominios de manteo constante; los límites entre dominios van por la bisectriz entre manteos vecinos.</td><td>Pliegues angulares, fajas plegadas y corridas de antepaís, pliegues de flexión de falla.</td></tr>
+  <tr><td>Busk</td><td>Arcos concéntricos con centro en la intersección de las normales a los manteos.</td><td>Pliegues paralelos redondeados.</td></tr>
+  <tr><td>Hermite</td><td>Curva suave que pasa por contactos del mismo par de unidades, tangente a los manteos.</td><td>Cuando el mismo contacto aflora dos o más veces (dos flancos).</td></tr>
+  <tr><td>Solo tangentes</td><td>Guías con el manteo aparente de cada dato.</td><td>Interpretar a mano, sin imponer un método.</td></tr>
+</table>
+<p><span class="ui">◎ Semilla con clic</span> construye un horizonte desde cualquier punto de la sección (por ejemplo, un contacto conocido en un sondaje).</p>
+<div class="box warn"><b>Los métodos no reemplazan la interpretación</b>Kink y Busk extrapolan los manteos de superficie; bajo un despegue o al otro lado de una falla, la geometría construida deja de valer. Corta o edita los horizontes donde corresponda.</div>
+
+<h3>⇉ Paralelas: una columna de capas</h3>
+<p>Selecciona un horizonte con <span class="ui">✋</span> y pulsa <span class="ui">⇉ Paralelas</span>. Escribe los espesores reales en metros separados por coma (por ejemplo <code>200, 300</code>) y, si quieres, la unidad de cada uno. Cada espesor crea una línea a partir de la anterior, hacia abajo (unidades más antiguas) o hacia arriba.</p>
+<ul>
+  <li><b>Paralelo:</b> espesor constante medido perpendicular a la capa (pliegues paralelos).</li>
+  <li><b>Similar:</b> espesor constante en la dirección axial, con el ángulo que indiques (pliegues similares).</li>
+</ul>
+
+<h3>π Eje: eje de pliegue de los manteos</h3>
+<p>Calcula el eje del pliegue (azimut de inmersión / inmersión) como la normal al círculo máximo que mejor ajusta los polos de los manteos del corredor ×4 (mínimo 3 manteos) e informa la calidad del ajuste. Si es buena, <span class="ui">Usar para proyección por eje</span> fija la proyección down-plunge con ese eje.</p>
+
+<!-- 9 -->
+<h2 id="plano"><span class="n">9</span>Plano de una falla por DEM</h2>
+<p>Para una falla o un contacto importado o dibujado en el mapa: clic sobre la línea → <span class="ui">Ajustar plano</span>. La app ajusta el plano que mejor explica cómo la traza corta el relieve (la regla de la «V») e informa manteo, dirección de manteo, desnivel y residuo.</p>
+<div class="box bad"><b>Cuándo no asignar el resultado</b>Si la traza corre por terreno plano, es casi recta o sigue la ladera, el plano queda mal determinado. La app compara con el plano del propio terreno y avisa cuando difieren menos de 15°: en ese caso la traza <b>no restringe el manteo</b>. También avisa si el sentido contradice el que indica la carta. Con aviso, no pulses <span class="ui">Asignar a la entidad</span>.</div>
+<p>Si el resultado es confiable, <span class="ui">Asignar a la entidad</span> guarda el manteo en la falla y la sección lo usa para su manteo aparente.</p>
+
+<!-- 10 -->
+<h2 id="balance"><span class="n">10</span>Balance</h2>
+<p><span class="ui">⚖ Balance</span> revisa los horizontes de la sección:</p>
+<ul>
+  <li><b>Largo de línea:</b> en una sección balanceada, los horizontes plegados deberían tener largos parecidos. Las diferencias mayores a 5 % respecto de la media se marcan en rojo. El acortamiento de cada horizonte es su largo menos la distancia entre sus extremos. Supone deformación plana, sección paralela a la dirección de transporte y conservación del espesor y del largo de las capas (deslizamiento flexural).</li>
+  <li><b>Área-profundidad:</b> con dos o más horizontes a distinta cota regional, estima el acortamiento y la cota del despegue (Chamberlin, 1910; Epard y Groshong, 1993), con su r².</li>
+</ul>
+<div class="box warn"><b>Supuestos</b>El nivel regional de cada horizonte se toma como la media de sus extremos, y la sección debe cubrir todo el pliegue. Con r² bajo o acortamiento negativo, revisa que los horizontes crucen el pliegue completo y que sus extremos estén en el nivel regional.</div>
+
+<!-- 11 -->
+<h2 id="cinematica"><span class="n">11</span>Modelado cinemático</h2>
+<p><span class="ui">⚙ Cinemática</span> abre un panel para deformar los horizontes con una falla de la sección. La falla se dibuja <b>de lo profundo hacia la punta</b>; el colgante es el bloque de arriba.</p>
+<table>
+  <tr><th>Modelo</th><th>Parámetros</th><th>Representa</th></tr>
+  <tr><td>Trishear</td><td>Sentido, desplazamiento, P/S (razón propagación/deslizamiento), ángulo apical, pasos.</td><td>Pliegues de propagación de falla, con una zona triangular de cizalla distribuida en la terminación de la falla (Erslev, 1991).</td></tr>
+  <tr><td>Flujo paralelo a la falla</td><td>Sentido, desplazamiento, pasos.</td><td>Pliegues de flexión de falla sobre rampa y plano (<i>fault-bend folds</i>).</td></tr>
+  <tr><td>Cizalla inclinada</td><td>Rechazo horizontal (extensión horizontal o <i>heave</i>), ángulo de cizalla desde la vertical (negativo = antitético).</td><td>Colgante de fallas normales lístricas (pliegue de <i>rollover</i>).</td></tr>
+</table>
+<p>Marca qué se mueve (horizontes, guías y otras fallas, que viajan pasivas con el colgante). Para <b>estratos sintectónicos</b>, indica cada cuántos pasos se deposita uno nuevo, la cota del primero y la subida entre estratos; la <b>erosión</b> corta lo que quede sobre una cota.</p>
+<ol class="steps">
+  <li><span class="ui">▶ Vista previa</span> corre el modelo hacia adelante. En este modo la falla dibujada es la <b>inicial</b>: en trishear la punta avanza durante el modelo.</li>
+  <li><span class="ui">⏮ Restaurar</span> corre el modelo hacia atrás: la falla dibujada es la <b>actual</b> y los horizontes vuelven a su estado previo. Si quedan rectos (y subhorizontales, si lo eran al depositarse), la interpretación es cinemáticamente admisible: es condición necesaria, no prueba de que sea la única.</li>
+  <li><span class="ui">✓ Aplicar a la sección</span> guarda el resultado; <span class="ui">Descartar</span> lo deja como estaba.</li>
+</ol>
+<h3>🎯 Inversión trishear</h3>
+<p>Busca la posición de la punta, el manteo de la rampa, P/S, ángulo apical y desplazamiento que dejan <b>rectos</b> los horizontes restaurados (Allmendinger, 1998). Defines hacia dónde sube la rampa, la punta aproximada con su rango, el desplazamiento máximo y el número de generaciones de la búsqueda; puedes fijar el manteo. Al terminar, <span class="ui">Usar esta falla y estos parámetros</span> ajusta la falla de la sección.</p>
+<div class="box warn"><b>Con un solo horizonte la solución no es única</b>Varias combinaciones de parámetros restauran igual de bien una sola capa. Usa dos o más horizontes, y contrasta el resultado con la geología: la inversión entrega una geometría posible, no la única.</div>
+
+<!-- 12 -->
+<h2 id="exportar"><span class="n">12</span>Exportar</h2>
+<p><span class="ui">⤓ Exportar</span> abre una vista previa de la lámina. Ajusta título, autor o institución, tamaño de hoja, escala horizontal (o «ajustar a la hoja»), exageración vertical y si lleva leyenda, escalas y ubicación.</p>
+<table>
+  <tr><th>Grupo</th><th>Salida</th><th>Uso</th></tr>
+  <tr><td rowspan="3">Lámina</td><td>SVG (capas)</td><td>En milímetros reales: impreso al 100 % queda a la escala indicada. Se edita en Illustrator o Inkscape.</td></tr>
+  <tr><td>PNG 150 / 300 / 600 dpi</td><td>Informes y presentaciones.</td></tr>
+  <tr><td>PDF (imprimir)</td><td>Abre el diálogo de impresión del navegador (permite ventanas emergentes si se bloquea).</td></tr>
+  <tr><td rowspan="5">Datos</td><td>KMZ 3D</td><td>La sección parada en el terreno en Google Earth.</td></tr>
+  <tr><td>SHP 3D</td><td>Líneas con cota (PolyLineZ) para ArcGIS o QGIS.</td></tr>
+  <tr><td>GeoJSON · CSV · DXF</td><td>SIG, planillas y CAD.</td></tr>
+  <tr><td>JSON sección</td><td>Solo la sección activa.</td></tr>
+  <tr><td><b>Proyecto completo</b></td><td>Capas, secciones e interpretación. Es el <b>respaldo</b>: se abre arrastrándolo a la app, también en otro equipo.</td></tr>
+</table>
+<div class="box ok"><b>Respalda seguido</b>El trabajo vive en el almacenamiento del navegador. Borrar los datos del sitio, usar una ventana privada o cambiar de equipo lo pierde. Exporta el proyecto completo al terminar cada sesión.</div>
+
+<!-- 13 -->
+<h2 id="offline"><span class="n">13</span>Sin conexión y DEM propio</h2>
+<h3>Descargar la zona</h3>
+<p>Antes de salir a terreno, encuadra la zona de trabajo y pulsa <span class="ui">⤓ Zona</span>. Se guardan las teselas del DEM y de Sentinel-2 del recuadro visible, con una estimación del peso. Acerca el mapa si la zona es muy grande. Sin señal, la app cambia sola el fondo a Sentinel-2.</p>
+<p>Las imágenes Esri de alta resolución no se descargan, porque sus términos no permiten el cacheo masivo. Con Sentinel-2, el DEM y el sombreado calculado en el equipo la sección queda completa.</p>
+<h3>DEM propio</h3>
+<p>Por defecto la app usa un DEM global de ~30 m. Para más detalle, importa un <b>GeoTIFF</b> (por ejemplo, un DEM de 12,5 m o un LiDAR): la app informa su tamaño y resolución y lo usa para el perfil y el sombreado. El panel Capas permite quitarlo y volver al DEM global.</p>
+
+<!-- 14 -->
+<h2 id="problemas"><span class="n">14</span>Problemas frecuentes</h2>
+<table>
+  <tr><th>Síntoma</th><th>Causa probable y solución</th></tr>
+  <tr><td>Los datos quedan corridos unos cientos de metros de la imagen.</td><td>Datum equivocado (PSAD56 vs WGS84). Quita la capa y vuelve a importarla eligiendo el sistema correcto.</td></tr>
+  <tr><td>Los manteos aparecen al revés en la sección.</td><td>Se leyó el rumbo como dirección de manteo o al revés. En las <code>GB_ESTRUCTURA</code>, <code>AZIMUTH</code> es rumbo: usa <code>d_DIR_MANT</code> para el sentido.</td></tr>
+  <tr><td>Una falla mantea hacia el lado equivocado.</td><td>Sin dato de sentido, se aplica la regla de la mano derecha respecto del sentido en que se digitalizó. Corrige el sentido en el asistente o asigna el manteo desde la ficha.</td></tr>
+  <tr><td>«Sin manteos para construir».</td><td>No hay manteos en el corredor: amplíalo, usa corredor ×2 o ×4, o agrega manteos con <span class="ui">∠ Manteo</span>.</td></tr>
+  <tr><td>«No pude leer el DEM en esta zona».</td><td>Sin conexión y sin la zona descargada. Conéctate o usa <span class="ui">⤓ Zona</span>.</td></tr>
+  <tr><td>Los textos de la carta salen con caracteres raros.</td><td>Problema de codificación del .dbf. Agrega un .cpg con el texto <code>1252</code> o <code>UTF-8</code>, según corresponda.</td></tr>
+  <tr><td>No veo una versión nueva de la app.</td><td>La app avisa «Nueva versión lista»; recarga la página.</td></tr>
+</table>
+
+<!-- 15 -->
+<h2 id="refs"><span class="n">15</span>Referencias</h2>
+<p>Referencias principales de los métodos de la app:</p>
+<ul>
+  <li>Allmendinger, R.W. 1998. Inverse and forward numerical modeling of trishear fault-propagation folds. <i>Tectonics</i> 17 (4): 640–656.</li>
+  <li>Chamberlin, R.T. 1910. The Appalachian folds of central Pennsylvania. <i>Journal of Geology</i> 18: 228–251.</li>
+  <li>Epard, J.-L.; Groshong, R.H. 1993. Excess area and depth to detachment. <i>AAPG Bulletin</i> 77 (8): 1291–1302.</li>
+  <li>Erslev, E.A. 1991. Trishear fault-propagation folding. <i>Geology</i> 19: 617–620.</li>
+</ul>
+
+<footer>Perfiles geológicos · PWA de SERNAGEOMIN · <a href="./">Abrir la app</a></footer>
+</main>
+</div>
+</body>
+</html>
