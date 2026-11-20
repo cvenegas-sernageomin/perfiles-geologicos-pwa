@@ -8,7 +8,7 @@
    ============================================================================= */
 "use strict";
 
-const VERSION = "v1.5.2";
+const VERSION = "v1.6.0";
 const SHELL = `perfil-shell-${VERSION}`;
 const CACHE_TILES = "perfil-tiles-v1";     // no se borra al actualizar la app
 
@@ -18,7 +18,7 @@ const ASSETS = [
   "./tutorial.html",
   "./css/app.css",
   "./js/util.js", "./js/db.js", "./js/geo.js", "./js/dem.js", "./js/state.js",
-  "./js/map.js", "./js/projection.js", "./js/construct.js", "./js/kinematics.js", "./js/kinpanel.js", "./js/sectionedit.js", "./js/profile.js", "./js/import.js", "./js/export.js", "./js/zone.js", "./js/app.js",
+  "./js/map.js", "./js/projection.js", "./js/construct.js", "./js/kinematics.js", "./js/kinpanel.js", "./js/analogs.js", "./js/sectionedit.js", "./js/profile.js", "./js/import.js", "./js/export.js", "./js/zone.js", "./js/app.js",
   "./js/vendor/jszip/jszip.min.js", "./js/vendor/shpjs/shp.min.js",
   "./js/vendor/togeojson/togeojson.umd.js", "./js/vendor/proj4/proj4.js",
   "./js/vendor/geotiff/geotiff.js",

@@ -21,6 +21,7 @@ const App = {
     Importer.bindDrop();
     SecEdit.bind();
     KinPanel.bind();
+    Analogs.bind();
 
     if (State.trace) {
       // al abrir, el mapa va a la sección activa (no a la vista por defecto)

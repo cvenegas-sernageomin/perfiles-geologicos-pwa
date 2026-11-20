@@ -241,6 +241,30 @@ body.bigsec{--foot:58vh}
 .xrow button:hover{border-color:var(--accent)}
 
 /* ---------- panel cinemático ---------- */
+#anaPanel{top:10px;right:10px;z-index:851;width:300px;max-height:calc(100% - 20px);overflow:auto;font-size:11.5px;line-height:1.4}
+#anaPanel[hidden]{display:none}
+#anaPanel .kh{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px}
+#anaPanel .kh button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px}
+#anaPanel .kh b{flex:1}
+#anaPanel .kf{padding:5px 7px;border-radius:5px;margin-bottom:6px;font-size:11px;background:rgba(95,191,147,.12);color:var(--ok)}
+#anaPanel .kf button{background:none;border:1px solid var(--ok);color:var(--ok);border-radius:4px;cursor:pointer;font-size:10.5px}
+#anaPanel .kr{display:flex;justify-content:space-between;align-items:center;gap:6px;margin:4px 0}
+#anaPanel .kr span{color:var(--muted)}
+#anaPanel .kr input,#anaPanel .kr select{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:3px 5px;font-size:11px}
+#anaPanel .kb{display:flex;gap:6px;margin:6px 0}
+#anaPanel .kb button{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:5px 6px;cursor:pointer;font-size:11.5px}
+#anaPanel .kb button.pri{background:var(--accent);color:#161a20;border-color:var(--accent);font-weight:700}
+#anaPanel .kmsg{color:var(--muted);font-size:10.5px;margin:4px 0}
+#anaPanel .row{display:flex;justify-content:space-between;gap:8px;padding:2px 0;border-bottom:1px solid #222831}
+#anaPanel .row .k{color:var(--muted);flex:none}
+#anaPanel .row .v{text-align:right}
+#anaPanel .aev{color:var(--accent);cursor:help}
+#anaPanel .anoev{color:var(--muted);font-size:9.5px;border:1px solid var(--line);border-radius:3px;padding:0 3px;cursor:help}
+#anaPanel .alist{display:flex;flex-direction:column;gap:4px;margin:6px 0}
+#anaPanel .aitem{text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:5px 7px;cursor:pointer;font-size:11px;color:inherit}
+#anaPanel .aitem span{color:var(--muted)}
+#anaPanel .adist{float:right;color:var(--accent)!important}
+#anaPanel .athumb{width:100%;border-radius:4px;margin:4px 0;background:#fff}
 #kinPanel{top:10px;right:10px;z-index:850;width:290px;max-height:calc(100% - 20px);overflow:auto;font-size:11.5px;line-height:1.4}
 #kinPanel[hidden]{display:none}
 #kinPanel .kh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}

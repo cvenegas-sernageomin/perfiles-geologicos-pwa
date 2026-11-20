@@ -239,6 +239,9 @@ const Profile = {
       c.fillText(fmt(z), x0 - 6, Y(z) + 3);
     }
 
+    // ---- figura de una sección análoga, de fondo ----
+    if (typeof Analogs !== "undefined" && Analogs) Analogs.drawBg(c, this.geom);
+
     // ---- techo topográfico ----
     const path = new Path2D();
     let started = false;

@@ -1,0 +1,494 @@
+{
+ "generado": "2026-11-19",
+ "fuente": "RAG-Bibliografia tools/perfiles",
+ "fichas": [
+  {
+   "ps": null,
+   "angulo_apical": null,
+   "edad_deformacion": null,
+   "metodo": [
+    "balanceada",
+    "restaurada",
+    "sísmica",
+    "pozos"
+   ],
+   "ve": null,
+   "longitud_km": 20,
+   "traza": {
+    "a": [
+     -37.0,
+     -69.9
+    ],
+    "b": [
+     -37.0,
+     -69.65
+    ],
+    "azimut": 90,
+    "confianza": "baja"
+   },
+   "despegues": [
+    {
+     "prof_km": null,
+     "referencia": null,
+     "nivel": "nivel de la Fm. Vaca Muerta"
+    }
+   ],
+   "fallas": [
+    {
+     "nombre": "corrimiento Agua de Reyes Oeste",
+     "tipo": "corrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    },
+    {
+     "nombre": "corrimiento Agua de Reyes Este",
+     "tipo": "corrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    }
+   ],
+   "acortamiento": {
+    "km": 4.5,
+    "pct": 20
+   },
+   "evidencia": {
+    "acortamiento": {
+     "texto": "The shortening of the basement together with the Mesozoic cover is about 20% representing approximately 4.5 km.",
+     "pagina": 9,
+     "origen": "texto"
+    },
+    "despegues": {
+     "texto": "the upper located in Lower Cretaceous evaporites of the Huitrín Formation",
+     "pagina": 5,
+     "origen": "texto"
+    },
+    "estilo": {
+     "texto": "in the west a basement block uplifted by east-verging structures thrust on top of Lower Cretaceous deposits",
+     "pagina": 8,
+     "origen": "leyenda"
+    },
+    "longitud_km": {
+     "texto": "A 20 km long W-E balanced cross section was constructed",
+     "pagina": 5,
+     "origen": "texto"
+    }
+   },
+   "notas": "Traza ubicada solo por región (el texto dice 37°S; la sierra de Reyes y Palauco están hacia 36°S, ver fig. 2 del trabajo). Sección compuesta: el tramo más oriental se basa en Zamora y Zapata (2006). Sin escala vertical declarada; no se midieron manteos. Latitud de la sierra de Reyes por confirmar con la Fig. 2 del trabajo (título: 37°S).",
+   "doi": "10.5027/andgeoV39n2-a01",
+   "id": "0f52074d978b",
+   "fuente": "V39n2-a01.pdf",
+   "cita": "Sagripanti et al. (2012)",
+   "primer_autor": "Sagripanti",
+   "anio": 2012,
+   "titulo": "Mountain building processes at the orogenic front. A study of the unroofing in Neogene foreland sequence (37°S)",
+   "region": "Frente orogénico de la faja plegada y corrida de Malargüe, sierra de Reyes (37°S)",
+   "cordillera": "Andes Centrales",
+   "ambito": "andes",
+   "estilo": "mixto",
+   "vergencia": "E",
+   "figura": {
+    "num": "5",
+    "pagina": 8,
+    "img": "0f52074d978b.jpg"
+   },
+   "resumen": "Sección estructural y reconstrucción palinspástica del frente orogénico de la faja plegada y corrida de Malargüe a ~37°S: un bloque de basamento levantado por estructuras de vergencia este y deformación de piel delgada más al este, con dos despegues, uno superior en las evaporitas de la Fm. Huitrín (Cretácico Inferior) y otro inferior al nivel de la Fm. Vaca Muerta (Jurásico Superior–Cretácico Inferior). El acortamiento del basamento y su cobertera mesozoica es de ~4,5 km (20 %).",
+   "revision_geologica": {
+    "fecha": "2026-11-19",
+    "veredicto": "corregir",
+    "nota": "",
+    "cambios": [
+     "revisión de la muestra inicial; ver notas"
+    ]
+   },
+   "licencia": "abierta",
+   "verificacion": {
+    "ok": [
+     "acortamiento",
+     "despegues",
+     "estilo",
+     "longitud_km"
+    ],
+    "revisar": [],
+    "anulados": []
+   }
+  },
+  {
+   "id": "aea468439221",
+   "fuente": "V39n2-a07.pdf",
+   "cita": "Turienzo et al. (2012)",
+   "primer_autor": "Turienzo",
+   "anio": 2012,
+   "doi": "10.5027/andgeoV39n2-a07",
+   "titulo": "Cenozoic structural evolution of the Argentinean Andes at 34°40’S: A close relationship between thick and thin-skinned deformation",
+   "region": "Faja plegada y corrida de Malargüe y Cordillera Frontal, río Diamante",
+   "cordillera": "Andes Centrales",
+   "ambito": "andes",
+   "traza": {
+    "a": [
+     -34.67,
+     -69.85
+    ],
+    "b": [
+     -34.67,
+     -69.3
+    ],
+    "azimut": 90,
+    "confianza": "media"
+   },
+   "estilo": "mixto",
+   "vergencia": "E",
+   "despegues": [
+    {
+     "prof_km": 10,
+     "referencia": "nivel_mar",
+     "nivel": "despegue principal en basamento, bajo el corrimiento Carrizalito (buza 4-5° al O)"
+    }
+   ],
+   "fallas": [
+    {
+     "nombre": "corrimiento Carrizalito",
+     "tipo": "corrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    }
+   ],
+   "acortamiento": {
+    "km": 14.3,
+    "pct": 24.1
+   },
+   "ps": null,
+   "angulo_apical": null,
+   "edad_deformacion": null,
+   "metodo": [
+    "balanceada"
+   ],
+   "ve": null,
+   "longitud_km": null,
+   "figura": {
+    "num": "4",
+    "pagina": 8,
+    "img": "aea468439221.jpg"
+   },
+   "resumen": "Sección balanceada central (C-C'), una de tres secciones E-O a ~34°40'S, con su restauración. Según los autores, cuñas de basamento apiladas de piel gruesa transmiten el desplazamiento a la cobertera por despegues y generan una zona de piel delgada, y el corrimiento Carrizalito levanta la Cordillera Frontal.",
+   "evidencia": {
+    "acortamiento": {
+     "texto": "14.5 km (24.4%), 14.3 km (24.1%) and 13.7 km (23.3%) respectively (Fig. 4)",
+     "pagina": 20,
+     "origen": "texto"
+    },
+    "despegues": {
+     "texto": "calculated a depth to detachment of 7.66 km from the top of the basement that is approximately 10 km below the sea level (Fig. 4)",
+     "pagina": 10,
+     "origen": "texto"
+    },
+    "traza": {
+     "texto": "Cenozoic structural evolution of the Argentinean Andes at 34o40’S",
+     "pagina": 1,
+     "origen": "texto"
+    }
+   },
+   "notas": "Ficha de la sección central C-C' (14.3 km, 24.1 %). Norte: 14.5 km (24.4 %); Sur: 13.7 km (23.3 %). El recorte reúne las tres secciones. Los 10 km de profundidad son para la sección central; el despegue buza 4-5° al O (6 km al este a 11 km al oeste). Traza aproximada por la latitud 34°40'S y la barra de 10 km.",
+   "revision_geologica": {
+    "fecha": "2026-11-19",
+    "veredicto": "corregir",
+    "nota": "",
+    "cambios": [
+     "revisión de la muestra inicial; ver notas"
+    ]
+   },
+   "licencia": "abierta",
+   "verificacion": {
+    "ok": [
+     "acortamiento",
+     "despegues",
+     "traza"
+    ],
+    "revisar": [],
+    "anulados": []
+   }
+  },
+  {
+   "id": "f1fa16e5d529",
+   "fuente": "V40n3-a03.pdf",
+   "cita": "Torres Carbonell et al. (2013)",
+   "primer_autor": "Torres Carbonell",
+   "anio": 2013,
+   "doi": "10.5027/andgeoV40n3-a03",
+   "titulo": "Evaluation of strain and structural style variations along the strike of the Fuegian thrust-fold belt front, Argentina",
+   "region": "Frente de la faja plegada y corrida fueguina, Área Oriental (Cerro Colorado-Punta Gruesa), Tierra del Fuego argentina",
+   "cordillera": "Andes Fueguinos",
+   "ambito": "andes",
+   "traza": {
+    "a": [
+     -54.47,
+     -66.77
+    ],
+    "b": [
+     -54.35,
+     -66.64
+    ],
+    "azimut": 30,
+    "confianza": "baja"
+   },
+   "estilo": "piel_delgada",
+   "vergencia": "NNE",
+   "despegues": [
+    {
+     "prof_km": null,
+     "referencia": "nivel_mar",
+     "nivel": "despegue basal en escalera bajo la Fm. Punta Torcida y Paleoceno(?) (según la figura)"
+    }
+   ],
+   "fallas": [
+    {
+     "nombre": "corrimiento Irigoyen (IT)",
+     "tipo": "corrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    },
+    {
+     "nombre": "sistema imbricado Punta Gruesa (PGIS)",
+     "tipo": "corrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    }
+   ],
+   "acortamiento": {
+    "km": 15.2,
+    "pct": 49
+   },
+   "ps": null,
+   "angulo_apical": null,
+   "edad_deformacion": "Oligoceno a Mioceno temprano",
+   "metodo": [
+    "balanceada",
+    "restaurada",
+    "area_balanceada"
+   ],
+   "ve": 1,
+   "longitud_km": 16,
+   "figura": {
+    "num": "9",
+    "pagina": 13,
+    "img": "f1fa16e5d529.jpg"
+   },
+   "resumen": "Sección balanceada del frente de la faja plegada y corrida fueguina en el Área Oriental, con láminas de corrimiento imbricadas y imbricadas de vergencia NNE con un retrocorrimiento y pliegues asociados sobre un despegue basal en escalera. Muestra el alto estructural esquemático, la sección restaurada y el acortamiento total.",
+   "evidencia": {
+    "acortamiento": {
+     "texto": "reveals a total shortening of 15.2 km, 49% of the restored length",
+     "pagina": 13,
+     "origen": "texto"
+    },
+    "despegues": {
+     "texto": "a basal detachment with staircase geometry",
+     "pagina": 13,
+     "origen": "texto"
+    },
+    "edad": {
+     "texto": "The age of deformation spans from the Oligocene to the early Miocene",
+     "pagina": 10,
+     "origen": "texto"
+    }
+   },
+   "notas": "Sección A-B (SSW-NNE). El rótulo de la figura dice 'Total shortening: 15.2 km (49%)'; longitud original 31,1 km (restaurada). Sub-sección del Punta Gruesa imbricate system: 1,35 km (~22%) entre pinpoints X-Z. Traza aproximada, sin coordenadas escritas (baja). Escala 1:1 (ejes de 2 km por 10 km en la figura), pero la ve no está declarada en el texto. La profundidad del despegue no se da numéricamente. Traza ubicada con Punta Gruesa (~54°21'S, 66°38'W, fuente secundaria): confirmar con el mapa del trabajo.",
+   "revision_geologica": {
+    "fecha": "2026-11-19",
+    "veredicto": "corregir",
+    "nota": "",
+    "cambios": [
+     "revisión de la muestra inicial; ver notas"
+    ]
+   },
+   "licencia": "abierta",
+   "verificacion": {
+    "ok": [
+     "acortamiento",
+     "despegues",
+     "edad"
+    ],
+    "revisar": [],
+    "anulados": []
+   }
+  },
+  {
+   "id": "f7750c1b33e8",
+   "fuente": "V46n2-3106.pdf",
+   "cita": "Piquer et al. (2019)",
+   "primer_autor": "Piquer",
+   "anio": 2019,
+   "doi": "10.5027/andgeoV46n2-3106",
+   "titulo": "Long-lived crustal damage zones associated with fault intersections in the high Andes of Central Chile",
+   "region": "Altos Andes de Chile central: Cuenca de Abanico invertida, transecta Río Blanco-Los Bronces (6.331.500 N) y El Teniente (6.228.000 N)",
+   "cordillera": "Andes Centrales",
+   "ambito": "andes",
+   "traza": {
+    "a": [
+     -33.15,
+     -70.8
+    ],
+    "b": [
+     -33.15,
+     -69.76
+    ],
+    "azimut": 90,
+    "confianza": "media"
+   },
+   "estilo": "inversion",
+   "vergencia": "doble",
+   "despegues": [],
+   "fallas": [],
+   "acortamiento": {
+    "km": null,
+    "pct": null
+   },
+   "ps": null,
+   "angulo_apical": null,
+   "edad_deformacion": null,
+   "metodo": [
+    "geofisica",
+    "sismicidad"
+   ],
+   "ve": null,
+   "longitud_km": 97,
+   "figura": {
+    "num": "4",
+    "pagina": 8,
+    "img": "f7750c1b33e8.jpg"
+   },
+   "resumen": "Dos secciones representativas de la Cuenca de Abanico invertida, a 6.331.500 N (por el pórfido Río Blanco-Los Bronces) y a 6.228.000 N (por El Teniente), con la sismicidad cortical proyectada. Fallas de alto ángulo cortan la cobertera y el basamento pre-Mesozoico (en gris). Según el texto, las fallas regionales de rumbo NW y NE funcionaron como normales durante la extensión y como fallas de rumbo conjugadas durante la inversión tectónica. En rosado se destacan los complejos de pórfidos y brechas hidrotermales asociados a Cu-Mo. Es una sección interpretativa; no está balanceada ni tiene despegues.",
+   "evidencia": {},
+   "notas": "La imagen contiene dos secciones apiladas: la superior a 6.331.500 N (RB-LB), usada para la traza, y la inferior a 6.228.000 N (ET, ~34,1°S, lon aprox. -70,64 a -70,0). Traza deducida de las marcas de longitud del eje (70°30' W y 70°15' W) y la coordenada N en UTM; no hay coordenadas escritas en el texto. Sin acortamiento, despegues ni manteos cuantificados en la fuente para estas secciones; la sección es sobre todo un corte de interpretación geofísica/sismicidad, de utilidad estructural limitada.",
+   "revision_geologica": {
+    "fecha": "2026-11-19",
+    "veredicto": "corregir",
+    "nota": "Exageración vertical ≈1,8 (estimada de los ejes, no declarada). La traza es la de la sección superior (Río Blanco-Los Bronces). Poca utilidad como análogo cuantitativo.",
+    "cambios": [
+     "traza: Recalculada con las marcas de longitud del eje de la sección.",
+     "longitud_km: ≈1,04° a 33,15°S.",
+     "edad_deformacion: Sin respaldo.",
+     "resumen: Fiel al texto."
+    ]
+   },
+   "licencia": "abierta",
+   "verificacion": {
+    "ok": [],
+    "revisar": [],
+    "anulados": []
+   }
+  },
+  {
+   "id": "fac212ee322a",
+   "fuente": "V45n2-3049.pdf",
+   "cita": "Lebinson et al. (2018)",
+   "primer_autor": "Lebinson",
+   "anio": 2018,
+   "doi": "10.5027/andgeoV45n2-3049",
+   "titulo": "The structure of the northern Agrio fold and thrust belt (37°30' S), Neuquén Basin, Argentina",
+   "region": "Faja plegada y corrida del Agrio norte, Cuenca Neuquina",
+   "cordillera": "Andes del Sur (Neuquén)",
+   "ambito": "andes",
+   "traza": {
+    "a": [
+     -37.6,
+     -70.45
+    ],
+    "b": [
+     -37.6,
+     -69.86
+    ],
+    "azimut": 90,
+    "confianza": "baja"
+   },
+   "estilo": "mixto",
+   "vergencia": "E",
+   "despegues": [
+    {
+     "prof_km": null,
+     "referencia": "nivel_mar",
+     "nivel": "evaporitas del Jurásico Tardío (Fm. Auquilco); despegues someros en el Miembro Pilmatué y en el Miembro Agua de la Mula (Fm. Agrio)"
+    }
+   ],
+   "fallas": [
+    {
+     "nombre": "corrimiento Las Yeseras",
+     "tipo": "corrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    },
+    {
+     "nombre": "retrocorrimiento Tres Chorros",
+     "tipo": "retrocorrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    },
+    {
+     "nombre": "retrocorrimiento Maitenes",
+     "tipo": "retrocorrimiento",
+     "manteo_rampa": null,
+     "desplazamiento_km": null
+    }
+   ],
+   "acortamiento": {
+    "km": 10.9,
+    "pct": 17.3
+   },
+   "ps": null,
+   "angulo_apical": null,
+   "edad_deformacion": null,
+   "metodo": [
+    "balanceada",
+    "restaurada",
+    "sísmica"
+   ],
+   "ve": 1,
+   "longitud_km": 51.91,
+   "figura": {
+    "num": "9",
+    "pagina": 12,
+    "img": "fac212ee322a.jpg"
+   },
+   "resumen": "Sección estructural b-b', interpretada y restaurada, del sector sur de la faja plegada y corrida del Agrio norte (Cuenca Neuquina), paralela a la línea sísmica 15007. Cuñas de basamento de primer orden, vergentes al este, transfieren la deformación hacia el antepaís principalmente a lo largo de las evaporitas jurásicas de la Formación Auquilco. Esas cuñas generan una intensa deformación de piel delgada en la cobertera, con anticlinales de segundo orden (El Cholar, Manzano, Taquimilán) y pliegues de tercer orden despegados en el Miembro Pilmatué. El anticlinal Tres Chorros es una estructura pop-up limitada por un corrimiento y un retrocorrimiento. Acortamiento por restauración de longitud de capas: 10,9 km (17,3 %); longitud deformada 51,91 km y restaurada 62,81 km.",
+   "evidencia": {
+    "acortamiento": {
+     "texto": "Shortening resulting from the bed-length restoration of this cross-section is 10.9 km (17.3%)",
+     "pagina": 12,
+     "origen": "texto"
+    },
+    "despegues": {
+     "texto": "mainly along Late Jurassic evaporites, which form basement wedges that transfer the deformation to the foreland",
+     "pagina": 1,
+     "origen": "texto"
+    },
+    "longitud_km": {
+     "texto": "Deformed lenght: 51.91 km",
+     "pagina": 12,
+     "origen": "figura"
+    }
+   },
+   "notas": "ve=1 es inferido de la barra de escala (sin declaracion textual). Traza aproximada (37°30'S, W-E); ubicacion exacta en Fig. 3 no revisada. Longitud restaurada 62.81 km segun la figura.",
+   "revision_geologica": {
+    "fecha": "2026-11-19",
+    "veredicto": "corregir",
+    "nota": "Los autores advierten que la interpretación del subsuelo es poco precisa por la mala calidad de la línea sísmica. Traza aproximada.",
+    "cambios": [
+     "estilo: 'large basement-involved wedges produce an intense thin-skinned deformation'.",
+     "despegues.0.nivel: Citas; no hay despegue en Vaca Muerta.",
+     "fallas: Nombradas en el texto.",
+     "edad_deformacion: Sin respaldo.",
+     "resumen: Fiel a la leyenda y las citas."
+    ]
+   },
+   "licencia": "abierta",
+   "verificacion": {
+    "ok": [
+     "acortamiento",
+     "despegues"
+    ],
+    "revisar": [
+     "longitud_km"
+    ],
+    "anulados": []
+   }
+  }
+ ]
+}

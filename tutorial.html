@@ -77,10 +77,11 @@ footer{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid va
   <a href="#plano"><span>9</span>Plano de una falla por DEM</a>
   <a href="#balance"><span>10</span>Balance</a>
   <a href="#cinematica"><span>11</span>Modelado cinemático</a>
-  <a href="#exportar"><span>12</span>Exportar</a>
-  <a href="#offline"><span>13</span>Sin conexión y DEM propio</a>
-  <a href="#problemas"><span>14</span>Problemas frecuentes</a>
-  <a href="#refs"><span>15</span>Referencias</a>
+  <a href="#analogos"><span>12</span>Secciones análogas</a>
+  <a href="#exportar"><span>13</span>Exportar</a>
+  <a href="#offline"><span>14</span>Sin conexión y DEM propio</a>
+  <a href="#problemas"><span>15</span>Problemas frecuentes</a>
+  <a href="#refs"><span>16</span>Referencias</a>
 </nav>
 
 <main>
@@ -294,7 +295,27 @@ footer{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid va
 <div class="box warn"><b>Con un solo horizonte la solución no es única</b>Varias combinaciones de parámetros restauran igual de bien una sola capa. Usa dos o más horizontes, y contrasta el resultado con la geología: la inversión entrega una geometría posible, no la única.</div>
 
 <!-- 12 -->
-<h2 id="exportar"><span class="n">12</span>Exportar</h2>
+<h2 id="analogos"><span class="n">12</span>Secciones análogas</h2>
+<p><span class="ui">📚 Análogos</span> abre un catálogo de secciones estructurales publicadas de los Andes y de fajas plegadas del mundo (Zagros, Pirineos, Alpes, Himalaya…), extraído de la bibliografía. Sirve para contrastar tu interpretación con otros modelos: estilo, profundidad del despegue, manteo de las rampas, acortamiento y parámetros de trishear.</p>
+<ul>
+  <li>Las secciones andinas se ordenan por <b>distancia a tu traza</b>; las mundiales van después y se filtran por estilo (piel delgada, piel gruesa, mixto, inversión, extensional).</li>
+  <li>La ficha muestra la cita, el DOI y cada parámetro con su <b>evidencia</b>: pasa el cursor sobre ❝ para leer la frase de la fuente y su página.</li>
+</ul>
+<h3>▣ Figura de fondo</h3>
+<p>Pone la figura publicada detrás de tu sección, semitransparente. Ajústala en tres pasos:</p>
+<ol class="steps">
+  <li><span class="ui">↔ Escala H</span>: clic en los dos extremos de la barra de escala de la figura y escribe su largo en km.</li>
+  <li><span class="ui">↕ Escala V</span>: clic en dos marcas del eje de cotas y escribe sus cotas en metros (bajo el nivel del mar, con signo menos). Si la figura tiene exageración vertical, este paso la corrige.</li>
+  <li><span class="ui">⌖ Anclar</span>: clic en un rasgo de la figura (una falla en superficie, un río) y luego clic donde va ese rasgo en tu sección.</li>
+</ol>
+<p>La figura y su calibración se guardan con la sección.</p>
+<h3>⚙ Usar parámetros</h3>
+<p>Copia el P/S y el ángulo apical de la ficha al panel de cinemática, dibuja una guía a la profundidad del despegue y, en <span class="ui">🎯 Inversión trishear</span>, ofrece la casilla <i>cotas de análogos</i>: limita P/S, ángulo apical y manteo de la rampa al rango de las fichas del mismo estilo.</p>
+<div class="box warn"><b>Un análogo es una hipótesis, no un dato</b>Las fichas se extrajeron de la bibliografía y cada valor se comparó con el texto del PDF, pero una sección de otra región solo indica lo que es geométricamente posible. Revisa siempre la fuente antes de citar un valor.</div>
+<p>El catálogo publicado trae solo las fuentes de licencia abierta (Andean Geology). El resto viene en un paquete local (<code>catalogo-local.zip</code>) que se carga con <span class="ui">⤒ Importar paquete</span> y queda solo en tu equipo.</p>
+
+<!-- 13 -->
+<h2 id="exportar"><span class="n">13</span>Exportar</h2>
 <p><span class="ui">⤓ Exportar</span> abre una vista previa de la lámina. Ajusta título, autor o institución, tamaño de hoja, escala horizontal (o «ajustar a la hoja»), exageración vertical y si lleva leyenda, escalas y ubicación.</p>
 <table>
   <tr><th>Grupo</th><th>Salida</th><th>Uso</th></tr>
@@ -309,16 +330,16 @@ footer{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid va
 </table>
 <div class="box ok"><b>Respalda seguido</b>El trabajo vive en el almacenamiento del navegador. Borrar los datos del sitio, usar una ventana privada o cambiar de equipo lo pierde. Exporta el proyecto completo al terminar cada sesión.</div>
 
-<!-- 13 -->
-<h2 id="offline"><span class="n">13</span>Sin conexión y DEM propio</h2>
+<!-- 14 -->
+<h2 id="offline"><span class="n">14</span>Sin conexión y DEM propio</h2>
 <h3>Descargar la zona</h3>
 <p>Antes de salir a terreno, encuadra la zona de trabajo y pulsa <span class="ui">⤓ Zona</span>. Se guardan las teselas del DEM y de Sentinel-2 del recuadro visible, con una estimación del peso. Acerca el mapa si la zona es muy grande. Sin señal, la app cambia sola el fondo a Sentinel-2.</p>
 <p>Las imágenes Esri de alta resolución no se descargan, porque sus términos no permiten el cacheo masivo. Con Sentinel-2, el DEM y el sombreado calculado en el equipo la sección queda completa.</p>
 <h3>DEM propio</h3>
 <p>Por defecto la app usa un DEM global de ~30 m. Para más detalle, importa un <b>GeoTIFF</b> (por ejemplo, un DEM de 12,5 m o un LiDAR): la app informa su tamaño y resolución y lo usa para el perfil y el sombreado. El panel Capas permite quitarlo y volver al DEM global.</p>
 
-<!-- 14 -->
-<h2 id="problemas"><span class="n">14</span>Problemas frecuentes</h2>
+<!-- 15 -->
+<h2 id="problemas"><span class="n">15</span>Problemas frecuentes</h2>
 <table>
   <tr><th>Síntoma</th><th>Causa probable y solución</th></tr>
   <tr><td>Los datos quedan corridos unos cientos de metros de la imagen.</td><td>Datum equivocado (PSAD56 vs WGS84). Quita la capa y vuelve a importarla eligiendo el sistema correcto.</td></tr>
@@ -330,8 +351,8 @@ footer{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid va
   <tr><td>No veo una versión nueva de la app.</td><td>La app avisa «Nueva versión lista»; recarga la página.</td></tr>
 </table>
 
-<!-- 15 -->
-<h2 id="refs"><span class="n">15</span>Referencias</h2>
+<!-- 16 -->
+<h2 id="refs"><span class="n">16</span>Referencias</h2>
 <p>Referencias principales de los métodos de la app:</p>
 <ul>
   <li>Allmendinger, R.W. 1998. Inverse and forward numerical modeling of trishear fault-propagation folds. <i>Tectonics</i> 17 (4): 640–656.</li>

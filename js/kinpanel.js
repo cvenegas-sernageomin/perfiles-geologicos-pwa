@@ -160,6 +160,7 @@ const KinPanel = {
           <label class="field">Punta: cota (m) ± 1000 <input id="iZ" value="${Math.round(tipZ)}"></label>
           <label class="field">Manteo (°) <input id="iDip" value="${Math.round(dip)}"></label>
           <label class="field" style="flex-direction:row;gap:6px;align-items:center"><input type="checkbox" id="iFix"> fijar el manteo</label>
+          ${this.bounds ? `<label class="field" style="flex-direction:row;gap:6px;align-items:center" title="P/S, apical y manteo acotados por ${esc(this.bounds.from)}"><input type="checkbox" id="iAna" checked> cotas de análogos (${[this.bounds.ps && "P/S " + this.bounds.ps.map((v) => fmt(v, 1)).join("–"), this.bounds.apical && "apical " + this.bounds.apical.map((v) => fmt(v)).join("–") + "°", this.bounds.dip && "manteo " + this.bounds.dip.map((v) => fmt(v)).join("–") + "°"].filter(Boolean).join(", ") || "sin datos"})</label>` : ""}
           <label class="field">Desplazamiento máx. (m) <input id="iSlip" value="3000"></label>
           <label class="field">Generaciones <input id="iGen" value="80"></label>
         </div>
@@ -178,9 +179,12 @@ const KinPanel = {
     if (!pick.length) { toast("Marca al menos un horizonte.", "bad"); return; }
     const nv = (id) => Number(String($(id).value).replace(",", "."));
     const S = nv("iS"), Z = nv("iZ"), dip = nv("iDip"), G = clamp(nv("iGen") || 80, 10, 400), fixDip = $("iFix").checked;
+    // cotas desde secciones análogas (📚 → «Usar parámetros»), si se marcó la casilla
+    const B = this.bounds && $("iAna") && $("iAna").checked ? this.bounds : {};
     const spec = [{ k: "tipS", min: S - 1500, max: S + 1500 }, { k: "tipZ", min: Z - 1000, max: Z + 1000 },
-      { k: "ps", min: 0.3, max: 5 }, { k: "apical", min: 20, max: 120 }, { k: "slip", min: 50, max: Math.max(100, nv("iSlip") || 3000) }];
-    if (!fixDip) spec.push({ k: "dip", min: Math.max(5, dip - 20), max: Math.min(85, dip + 20) });
+      { k: "ps", min: B.ps ? B.ps[0] : 0.3, max: B.ps ? B.ps[1] : 5 }, { k: "apical", min: B.apical ? B.apical[0] : 20, max: B.apical ? B.apical[1] : 120 },
+      { k: "slip", min: 50, max: Math.max(100, nv("iSlip") || 3000) }];
+    if (!fixDip) spec.push(B.dip ? { k: "dip", min: B.dip[0], max: B.dip[1] } : { k: "dip", min: Math.max(5, dip - 20), max: Math.min(85, dip + 20) });
     const zBase = Profile.geom ? Profile.geom.vlo : Z - 4000;
     const btn = [...$("mActs").querySelectorAll("button")].find((b) => b.textContent === "Invertir");
     if (btn) btn.disabled = true;

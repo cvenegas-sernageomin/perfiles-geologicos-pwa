@@ -311,6 +311,7 @@ const SecEdit = {
   onDown(e) {
     const p = this.ev(e);
     if (!p || e.button === 2) return;
+    if (typeof Analogs !== "undefined" && Analogs && Analogs.cal && Analogs.calClick(p)) return;
     const t = this.tool;
     if (t === "view") {
       const h = this.hit(p.px, p.py, p.g);
